@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{{ project.name }}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <section class="cover-image">
+    {% if project.cover_image %}
+        <img src="{{ project.cover_image.url }}">
+    {% endif %}
+    </section>
+
+    <section class="project-desc">
+        {% load markdown_extras %}
+        {{ project.description_md|render_markdown }}
+    </section>
+
+    <section class="gallery">
+    {% for image in project.gallery.all %}
+        <figure class="gallery-item">
+            <img src="{{ image.image.url }}">
+            {% if image.caption %}
+                <figcaption>{{ image.caption }}</figcaption>
+            {% endif %}
+        </figure>
+    {% endfor %}
+    </section>
+
+    <nav class="links">
+        <a href="{{ project.discussion_url }}">
+            Discuss
+        </a>
+        <span class="nav-sep"></span>
+        <a href="{{ project.github_url }}">
+            View Source
+        </a>
+        <span class="nav-sep"></span>
+        <a href="{{ project.docs_url }}">
+            Docs
+        </a>
+        <span class="nav-sep"></span>
+        <a href="{{ project.store_url }}">
+            Buy
+        </a>
+    </section>
+
+{% endblock %}

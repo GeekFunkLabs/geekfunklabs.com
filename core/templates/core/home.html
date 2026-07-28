@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load markdown_extras %}
+
+{% block content %}
+
+<p>
+Geek Funk Labs is a small independent workshop focused on open-source
+music technology, embedded systems, Linux audio, and experimental
+hardware/software projects. There are some things here for sale, but the
+mission is to provide everything you need to learn it/build it yourself.
+</p>
+
+<div class="section-sep"></div>
+
+<ul class="project-list">
+{% for project in featured_projects %}
+    <li>
+        <header>
+            <h3>
+                <a href="{% url 'projects:detail' project.slug %}">
+                    {{ project.name }}
+                </a>
+            </h3>
+        </header>
+        <blockquote class="project-summary">
+            {{ project.summary }}
+        </blockquote>
+    </li>
+{% endfor %}
+</ul>
+
+<div class="section-sep"></div>
+
+<ul class="post-list">
+{% for post in recent_posts %}
+    <li>
+        <header>
+            <div class="post-list-headline">
+                <h3>
+                    <a href="{% url 'blog:detail' post.slug %}">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                <div class="post-list-date">
+                    {{ post.created }}
+                </div>
+            </div>
+        </header>
+        <div class="tag-cloud">
+        {% for tag in post.tags.all %}
+            <a class="tag" href="{% url 'blog:tag' tag.slug %}">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+        </div>
+        <blockquote class="post-excerpt">
+        {% if post.excerpt %}
+            {{ post.excerpt }}
+        {% else %}
+            {{ post.body_md|render_markdown|truncatewords:30 }}
+        {% endif %}
+        </blockquote>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -37,8 +37,8 @@ __pycache__/
 *$py.class
 
 # Django migrations (optional - team decision)
-# */migrations/*.py
-# */migrations/*.pyc
+*/migrations/*.py
+*/migrations/*.pyc
 
 # Celery
 celerybeat-schedule

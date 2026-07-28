@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% load markdown_extras %}
+
+{% block content %}
+
+<p>Thoughts on open-source hardware,
+software, music technology, astronomy,
+and whatever else I'm building.
+</p>
+
+<div class="section-sep"></div>
+
+<section class=tag-cloud>
+<h2>Tags:</h2>
+{% for tag in tags %}
+    <a class="tag" href="{% url 'blog:tag' tag.slug %}">
+        {{ tag.name }}
+        <span class="post-count">({{ tag.num_posts }})</span>
+    </a>
+{% endfor %}
+</section>
+
+<div class="section-sep"></div>
+
+<section class=post-archive>
+<h2>Archive:</h2>
+{% for year in archive %}
+    <a class="tag" href="{% url 'blog:year' year.year %}">
+        {{ year.year }}
+        <span class="post-count">({{ year.num_posts }})</span>
+    </a>
+{% endfor %}
+</section>
+
+<div class="section-sep"></div>
+
+<ul class="post-list">
+{% for post in posts %}
+    <li>
+        <header>
+            <div class="post-list-headline">
+                <h3>
+                    <a href="{% url 'blog:detail' post.slug %}">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                <div class="post-list-date">
+                    {{ post.created }}
+                </div>
+            </div>
+        </header>
+        <div class="tag-cloud">
+        {% for tag in post.tags.all %}
+            <a class="tag" href="{% url 'blog:tag' tag.slug %}">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+        </div>
+        <blockquote class="post-excerpt">
+        {% if post.excerpt %}
+            {{ post.excerpt }}
+        {% else %}
+            {{ post.body_md|render_markdown|truncatewords:30 }}
+        {% endif %}
+        </blockquote>
+    </li>
+{% endfor %}
+</ul>
+
+<nav class="pager">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">
+            first {{ paginator.per_page }}
+        </a>
+        <span class="nav-sep"></span>
+        <a href="?page={{ page_obj.previous_page_number }}">
+            previous {{ paginator.per_page }}
+        </a>
+        <span class="nav-sep"></span>
+    {% endif %}
+
+    {{ page_obj.start_index }}-{{ page_obj.end_index }}
+    of {{ paginator.count }}
+
+    {% if page_obj.has_next %}
+        <span class="nav-sep"></span>
+        <a href="?page={{ page_obj.next_page_number }}">
+            next {{ paginator.per_page }}
+        </a>
+        <span class="nav-sep"></span>
+        <a href="?page={{ page_obj.paginator.num_pages }}">
+            last {{ paginator.per_page }}
+        </a>
+    {% endif %}
+</nav>
+
+{% endblock %}
+

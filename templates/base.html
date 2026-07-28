@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Geek Funk Labs{% endblock %}</title>
+    {% load static %}<link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+
+<body>
+
+    <header id="page-header">
+        <div>
+            {% block header %}
+            <h1>Geek Funk Labs</h1>
+            <p>Open tech with funk soul.</p>
+            {% endblock %}
+        </div>
+        <img id="logo" src="/media/gfl_logo.png">
+    </header>
+
+    <nav id="main-nav">
+        <a href="/">Home</a>
+        <span class="nav-sep"></span>
+        <a href="/about">About</a>
+        <span class="nav-sep"></span>
+        <a href="{% url 'blog:index' %}">Notebook</a>
+        <span class="nav-sep"></span>
+        <a href="{% url 'projects:index' %}">Projects</a>
+        <span class="nav-sep"></span>
+        <a href="https://github.com/GeekFunkLabs">GitHub</a>
+        <span class="nav-sep"></span>
+        <a href="/store">Store</a>
+        <div class="section-sep"></div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>
