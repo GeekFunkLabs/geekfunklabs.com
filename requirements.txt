@@ -1,0 +1,14 @@
+asgiref==3.11.1
+beautifulsoup4==4.15.0
+bleach==6.4.0
+Django==6.0.5
+django-debug-toolbar==7.0.0
+markdown-it-py==4.2.0
+mdurl==0.1.2
+pillow==12.3.0
+six==1.17.0
+soupsieve==2.9
+sqlparse==0.5.5
+tinycss2==1.5.1
+typing_extensions==4.16.0
+webencodings==0.5.1
