@@ -11,4 +11,5 @@ class ProjectImageInline(admin.TabularInline):
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     inlines = [ProjectImageInline]
+    list_display = ["name", "status"]
 

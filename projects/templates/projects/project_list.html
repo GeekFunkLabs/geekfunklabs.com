@@ -3,84 +3,36 @@
 {% block content %}
 
 <p>
-Geek Funk Labs develops technology/software with musical applications in
-mind, or general fun and usefulness. GFL products can be purchased as
-kits or fully-assembled through our Tindie store, but our primary
-mission is to provide a resource for people to learn about, understand,
-and use technology to create and perform. We’re dedicated the the open
-source model, and believe that creators work best when they are free to
-understand and modify every aspect of their tools.
+This page lists Geek Funk Labs' major projects and their current status.
+<strong>Active</strong> projects are fully functional and under active
+development, <strong>Experimental</strong> projects are works in
+progress, and <strong>Archived</strong> projects are complete but no
+longer actively maintained. Each project page includes links to
+documentation, source code, and places to report issues or discuss
+ideas with the community.
 </p>
 
-{% if active %}
-    <div class="section-sep"></div>
-    <header>
-        <h2>Active:</h2>
-    </header>
-    <ul class="project-list">
-    {% for project in active %}
-        <li>
-            <header>
-                <h3>
-                    <a href="{% url 'projects:detail' project.slug %}">
-                        {{ project.name }}
-                    </a>
-                </h3>
-            </header>
-            <blockquote class="project-summary">
-                {{ project.summary }}
-            </blockquote>
-        </li>
-    {% endfor %}
-    </ul>
-{% endif %}
+<div class="section-sep"></div>
 
-{% if experimental %}
-    <div class="section-sep"></div>
-    <header>
-        <h2>Experimental:</h2>
-    </header>
-    <ul class="project-list">
-    {% for project in experimental %}
-        <li>
-            <header>
-                <h3>
-                    <a href="{% url 'projects:detail' project.slug %}">
-                        {{ project.name }}
-                    </a>
-                </h3>
-            </header>
-            <blockquote class="project-summary">
-                {{ project.summary }}
-            </blockquote>
-        </li>
-    {% endfor %}
-    </ul>
-{% endif %}
-
-{% if archived %}
-    <div class="section-sep"></div>
-    <header>
-        <h2>Archived:</h2>
-    </header>
-    <ul class="project-list">
-    {% for project in archived %}
-        <li>
-            <header>
-                <h3>
-                    <a href="{% url 'projects:detail' project.slug %}">
-                        {{ project.name }}
-                    </a>
-                </h3>
-            </header>
-            <blockquote class="project-summary">
-                {{ project.summary }}
-            </blockquote>
-        </li>
-    {% endfor %}
-    </ul>
-{% endif %}
-
+<ul class="post-list">
+{% for project in projects %}
+    <li>
+        <div class="post-list-headline">
+            <h2>
+                <a href="{% url 'projects:project' project.slug %}">
+                    {{ project.name }}
+                </a>
+            </h2>
+            <div class="post-list-info">
+                {{ project.status }}
+            </div>
+        </div>
+        <blockquote class="summary">
+            {{ project.summary }}
+        </blockquote>
+    </li>
+{% endfor %}
+</ul>
 
 {% endblock %}
 

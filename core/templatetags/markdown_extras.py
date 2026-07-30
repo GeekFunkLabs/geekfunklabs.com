@@ -1,11 +1,11 @@
 from django import template
 from django.utils.safestring import mark_safe
-from markdown_it import MarkdownIt
+
+from core.utils import render_markdown
 
 register = template.Library()
 
-md = MarkdownIt("commonmark")
 
 @register.filter
-def render_markdown(text):
-    return mark_safe(md.render(text))
+def markdown(text):
+    return mark_safe(render_markdown(text))

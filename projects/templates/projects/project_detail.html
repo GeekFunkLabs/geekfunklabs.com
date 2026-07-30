@@ -14,7 +14,7 @@
 
     <section class="project-desc">
         {% load markdown_extras %}
-        {{ project.description_md|render_markdown }}
+        {{ project.description_md|markdown }}
     </section>
 
     <section class="gallery">
@@ -33,16 +33,20 @@
             Discuss
         </a>
         <span class="nav-sep"></span>
-        <a href="{{ project.github_url }}">
-            View Source
-        </a>
-        <span class="nav-sep"></span>
         <a href="{{ project.docs_url }}">
             Docs
         </a>
         <span class="nav-sep"></span>
+        <a href="{{ project.source_url }}">
+            View Source
+        </a>
+        <span class="nav-sep"></span>
         <a href="{{ project.store_url }}">
             Buy
+        </a>
+        <span class="nav-sep"></span>
+        <a href="{{ project.issue_url }}">
+            Report Issue
         </a>
     </section>
 

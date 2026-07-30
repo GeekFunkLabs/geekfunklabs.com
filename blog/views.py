@@ -2,7 +2,7 @@ from django.db.models import Count, Q
 from django.db.models.functions import ExtractYear
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
-from django.views import generic
+from django.views.generic import ListView, DetailView
 
 from .models import BlogPost, Tag
 from core.utils import github_create_discussion
@@ -24,7 +24,7 @@ def discuss(request, slug):
     return redirect(post.discussion_url)
 
 
-class BlogListView(generic.ListView):
+class BlogListView(ListView):
     model = BlogPost
     template_name = "blog/post_list.html"
     context_object_name = "posts"
@@ -75,6 +75,11 @@ class TagView(BlogListView):
             .order_by("-created")
         )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tagview"] = self.kwargs["slug"]
+        return context
+
 
 class BlogYearView(BlogListView):
 
@@ -89,8 +94,13 @@ class BlogYearView(BlogListView):
             .order_by("-created")
         )
         
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["yearview"] = self.kwargs["year"]
+        return context
+
         
-class BlogPostView(generic.DetailView):
+class BlogPostView(DetailView):
     model = BlogPost    
     template_name = "blog/post_detail.html"
     context_object_name = "post"

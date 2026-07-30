@@ -11,10 +11,11 @@ class Project(models.Model):
 
     description_md = models.TextField()
 
+    discussion_url = models.URLField(blank=True)
     docs_url = models.URLField(blank=True)
     source_url = models.URLField(blank=True)
     store_url = models.URLField(blank=True)
-    discussion_url = models.URLField(blank=True)
+    issue_url = models.URLField(blank=True)
 
     cover_image = models.ImageField(
         upload_to="project_images/featured/",
@@ -41,7 +42,7 @@ class Project(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("project_detail", args=[self.slug])
+        return reverse("projects:project", args=[self.slug])
 
 
 class ProjectImage(models.Model):

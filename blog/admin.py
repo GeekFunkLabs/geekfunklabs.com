@@ -10,4 +10,5 @@ class BlogPostAdmin(admin.ModelAdmin):
     list_display = ["title", "created", "updated"]
     list_filter = ["created", "updated", "published", "tags"]
     search_fields = ["title", "body_md"]
+    prepopulated_fields = {"slug": ("title",)}
 

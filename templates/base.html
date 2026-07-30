@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>{% block title %}Geek Funk Labs{% endblock %}</title>
-    {% load static %}<link rel="stylesheet" href="{% static 'style.css' %}" />
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
 
 <body>
@@ -11,24 +13,24 @@
         <div>
             {% block header %}
             <h1>Geek Funk Labs</h1>
-            <p>Open tech with funk soul.</p>
+            Open tech with funk soul.
             {% endblock %}
         </div>
         <img id="logo" src="/media/gfl_logo.png">
     </header>
 
     <nav id="main-nav">
-        <a href="/">Home</a>
+        <a href="{% url 'core:home' %}">Home</a>
         <span class="nav-sep"></span>
-        <a href="/about">About</a>
+        <a href="{% url 'core:about' %}">About</a>
         <span class="nav-sep"></span>
-        <a href="{% url 'blog:index' %}">Notebook</a>
+        <a href="{% url 'blog:list' %}">Notebook</a>
         <span class="nav-sep"></span>
-        <a href="{% url 'projects:index' %}">Projects</a>
+        <a href="{% url 'projects:list' %}">Projects</a>
         <span class="nav-sep"></span>
         <a href="https://github.com/GeekFunkLabs">GitHub</a>
         <span class="nav-sep"></span>
-        <a href="/store">Store</a>
+        <a href="https://www.tindie.com/stores/albedozero/">Store</a>
         <div class="section-sep"></div>
     </nav>
 

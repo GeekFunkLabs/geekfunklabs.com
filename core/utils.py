@@ -2,21 +2,28 @@ import http.client
 import json
 import os
 
+from markdown_it import MarkdownIt
+
+
 GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
 REPO_ID = "R_kgDOTlMmZQ"
 CATEGORY_ID = "DIC_kwDOTlMmZc4DCLm2"
 
+_md = MarkdownIt("commonmark")
 
-def github_graphql(query, variables):
+
+def render_markdown(text):
+    return _md.render(text)
+
+
+def _github_graphql(query, variables=None):
+    if variables is None:
+        variables = {}
     conn = http.client.HTTPSConnection("api.github.com")
-    payload = json.dumps({
-        "query": query,
-        "variables": variables,
-    })
     conn.request(
         "POST",
         "/graphql",
-        body=payload,
+        body=json.dumps({"query": query, "variables": variables}),
         headers={
             "Authorization": f"Bearer {GITHUB_TOKEN}",
             "Content-Type": "application/json",
@@ -55,12 +62,12 @@ mutation CreateDiscussion($repositoryId: ID!, $categoryId: ID!, $body: String!, 
   }
 }
 """
-    data = graphql(query, variables)
+    data = _github_graphql(query, variables)
     return data["data"]["createDiscussion"]["discussion"]["url"]
 
 
 def get_ids():
-    return github_graphql("""
+    return _github_graphql("""
 query MyQuery {
   repository(name: "geekfunklabs.com", owner: "GeekFunkLabs") {
     id
@@ -75,5 +82,5 @@ query MyQuery {
     }
   }
 }
-""", {})
+""")
 
