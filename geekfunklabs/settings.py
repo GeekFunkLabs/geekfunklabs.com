@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+from os import environ as env
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
@@ -20,12 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-@iun14)3$v7_l4c=tw9(1ehl&8ks&4c_t+dqzb)jyy=i#f8g(y"
+SECRET_KEY = env.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-@iun14)3$v7_l4c=tw9(1ehl&8ks&4c_t+dqzb)jyy=i#f8g(y"
+)
 
 # SECURITY WARNING: don"t run with debug turned on in production!
-DEBUG = True
+DEBUG = env.get("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.get("DJANGO_ALLOWED_HOSTS", "localhost").split(",")
 
 
 # Application definition
@@ -78,7 +82,7 @@ WSGI_APPLICATION = "geekfunklabs.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": env.get("DJANGO_DATABASE", BASE_DIR / "db.sqlite3")
     }
 }
 
@@ -118,10 +122,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = [BASE_DIR / "static",]
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# HTTPS
+
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
+#SECURE_SSL_REDIRECT = True
 
