@@ -22,7 +22,7 @@ secret_key.txt
 /extra/
 
 # Static files (collected)
-/static/
+#/static/
 /staticfiles/
 
 # Media files
