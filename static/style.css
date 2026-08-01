@@ -57,7 +57,7 @@ nav {
 nav * {font-family: var(--marker); font-size: 1.2rem;}
 nav .nav-sep::before {content: "•"; margin: 0 0.8rem;}
 nav a {color: var(--fg);}
-nav button {border: 0; background: none;}
+nav button {border: 0; background: none; color: var(--fg);}
 nav a:hover, nav button:hover {
     text-decoration: underline solid var(--fg) 20%;
 }
