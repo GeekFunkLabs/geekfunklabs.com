@@ -12,22 +12,23 @@
     src: url("/static/PermanentMarker-Regular.woff2") format("woff2");
 }
 
-@media (max-width: 600px) {
-}
-
 * {box-sizing: border-box;}
 
 body {
     background: var(--bg);
     color: var(--fg);
     font-family: Tahoma, Verdana, sans-serif;
-    line-height: 1.7;
+    line-height: 1.6;
+    font-size: 1rem;
     max-width: 800px;
     margin: 1rem auto;
     padding: 10px;
 }
 
 h1, h2, h3 {font-family: var(--marker); margin: 0;}
+h1 {font-size: clamp(2.2rem, 5vw, 3rem);}
+h2 {font-size: clamp(1.6rem, 3vw, 2rem);}
+h3 {font-size: clamp(1.3rem, 2vw, 1.6rem);}
 
 a {color: var(--accent); text-decoration: none;}
 a:hover {text-decoration: underline;}
@@ -54,13 +55,16 @@ nav {
     flex-wrap: wrap;
     justify-content: center;
 }
-nav * {font-family: var(--marker); font-size: 1.2rem;}
-nav .nav-sep::before {content: "•"; margin: 0 0.8rem;}
-nav a {color: var(--fg);}
-nav button {border: 0; background: none; color: var(--fg);}
+nav a, nav button {
+    color: var(--fg);
+    font-family: var(--marker);
+    font-size: 1.2rem;
+}
+nav button {border: 0; background: none;}
 nav a:hover, nav button:hover {
     text-decoration: underline solid var(--fg) 20%;
 }
+nav .nav-sep::before {content: "•"; margin: 0 0.8rem;}
 #main-nav {
     position: sticky;
     top: 0;
