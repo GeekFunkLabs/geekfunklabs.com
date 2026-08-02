@@ -134,7 +134,12 @@ MEDIA_ROOT = env.get("DJANGO_MEDIA_ROOT", BASE_DIR / "media")
 
 # HTTPS
 
-#CSRF_COOKIE_SECURE = True
-#SESSION_COOKIE_SECURE = True
-#SECURE_SSL_REDIRECT = True
+if env.get("DJANGO_USE_HTTPS", "False") == "True":
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = (
+        "HTTP_X_FORWARDED_PROTO",
+        "https",
+    )
 
