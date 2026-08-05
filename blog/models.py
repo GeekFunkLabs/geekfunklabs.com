@@ -23,7 +23,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
 
-    excerpt = models.CharField(max_length=300)
+    excerpt = models.CharField(max_length=300, blank=True)
     body_md = models.TextField()
 
     tags = models.ManyToManyField(
