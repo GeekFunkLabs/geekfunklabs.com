@@ -41,9 +41,11 @@
             View Source
         </a>
         <span class="nav-sep"></span>
-        <a href="{{ project.store_url }}">
-            Buy
-        </a>
+        {% if project.store_url %}
+            <a href="{{ project.store_url }}">
+                Buy
+            </a>
+        {% endif %}
         <span class="nav-sep"></span>
         <a href="{{ project.issue_url }}">
             Report Issue
